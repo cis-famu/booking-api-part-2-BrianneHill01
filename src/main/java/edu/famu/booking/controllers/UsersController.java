@@ -1,6 +1,6 @@
 package edu.famu.booking.controllers;
 
-import edu.famu.booking.service.UsersService;
+import edu.famu.booking.service.UserService;
 import edu.famu.booking.util.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("user")
 public class UsersController {
-    private UsersService usersService;
+    private UserService userService;
 
-    public UsersController(UsersService usersService) {
-        this.usersService = usersService;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
     @GetMapping
     public ResponseEntity<ApiResponse> getAllUsers()
     {
         try {
-            return ResponseEntity.ok(new ApiResponse(true,"Success", usersService.getAllUsers(), null));
+            return ResponseEntity.ok(new ApiResponse(true,"Success", userService.getAllUsers(), null));
         }
         catch (Exception e){
             return ResponseEntity.status(500).body(new ApiResponse(false, "An error occurred.", null, e.getMessage()));
@@ -30,7 +30,7 @@ public class UsersController {
     @GetMapping("/{userId}")
     public ResponseEntity<ApiResponse> getUsersById(@PathVariable String userId){
         try {
-            return ResponseEntity.ok(new ApiResponse(true,"Success", usersService.getUsersById(userId), null));
+            return ResponseEntity.ok(new ApiResponse(true,"Success", userService.getUsersById(userId), null));
         }
         catch (Exception e){
             return ResponseEntity.status(500).body(new ApiResponse(false, "An error occurred.", null, e.getMessage()));

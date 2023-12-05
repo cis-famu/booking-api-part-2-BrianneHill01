@@ -9,26 +9,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Users {
+public class Hotel {
     @DocumentId
-    private @Nullable String userID;
+    private @Nullable String hotelID;
     private String name;
-    private String email;
-    private String phone;
+    private String description;
+    private double rating;
     private String address;
-
-    private @Nullable paymentInformation paymentInformation;
+    private String contactInformation;
+    private ArrayList<String> amenities;
     private @Nullable Timestamp createdAt;
-
-    public Users(String id, String name, String email, String phone, edu.famu.booking.models.paymentInformation paymentInformation, Timestamp createdAt) {
-    }
 
     public void setCreatedAt(String createdAt) throws ParseException {
         this.createdAt = Timestamp.fromProto(Timestamps.parse(createdAt));
     }
 }
-

@@ -1,6 +1,6 @@
 package edu.famu.booking.controllers;
 
-import edu.famu.booking.service.hotelService;
+import edu.famu.booking.service.HotelService;
 import edu.famu.booking.util.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("hotel")
 //hello
-public class hotelControllers {
-    private hotelService hotelService;
+public class HotelController {
+    private HotelService hotelService;
 
-    public hotelControllers(hotelService hotelService) {
+    public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
     @GetMapping

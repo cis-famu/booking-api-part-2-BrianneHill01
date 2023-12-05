@@ -3,48 +3,47 @@ package edu.famu.booking.service;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import edu.famu.booking.models.paymentInformation;
-import edu.famu.booking.models.Users;
-import edu.famu.booking.models.paymentInformation;
+import edu.famu.booking.models.PaymentInformation;
+import edu.famu.booking.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Service
-public class UsersService {
+public class UserService {
     private Firestore firestore;
 
-    public UsersService() {
+    public UserService() {
         this.firestore = FirestoreClient.getFirestore();
     }
 
-    private Users documentSnapshotToUsers(DocumentSnapshot document) throws ExecutionException, InterruptedException {
-        Users users = null;
+    private User documentSnapshotToUsers(DocumentSnapshot document) throws ExecutionException, InterruptedException {
+        User user = null;
         if (document.exists()) {
-            PaymentInformationServices paymentInformationService = new PaymentInformationServices();
-            paymentInformation paymentInformation = paymentInformationService.getPaymentInformation((DocumentReference) document.get("paymentInformation"));
-            users = new Users(document.getId(), document.getString("name"), document.getString("email"), document.getString("phone"), paymentInformation, document.getTimestamp("createdAt"));
+            PaymentInformationService paymentInformationService = new PaymentInformationService();
+            PaymentInformation paymentInformation = paymentInformationService.getPaymentInformation((DocumentReference) document.get("paymentInformation"));
+            user = new User(document.getId(), document.getString("name"), document.getString("email"), document.getString("phone"), document.getString("address"), paymentInformation, document.getTimestamp("createdAt"));
         }
-        return users;
+        return user;
 
     }
 
-    public ArrayList<Users> getAllUsers() throws ExecutionException, InterruptedException {
+    public ArrayList<User> getAllUsers() throws ExecutionException, InterruptedException {
         CollectionReference usersCollection = firestore.collection("Users");
         ApiFuture<QuerySnapshot> future = usersCollection.get();
 
-        ArrayList<Users> usersList = new ArrayList<>();
+        ArrayList<User> userList = new ArrayList<>();
 
         for (DocumentSnapshot document : future.get().getDocuments()) {
-            Users users = documentSnapshotToUsers(document);
-            if (users != null)
-                usersList.add(users);
+            User user = documentSnapshotToUsers(document);
+            if (user != null)
+                userList.add(user);
         }
-        return usersList;
+        return userList;
     }
 
-    public Users getUsersById(String userID) throws ExecutionException, InterruptedException {
+    public User getUsersById(String userID) throws ExecutionException, InterruptedException {
         CollectionReference usersCollection = firestore.collection("Users");
         ApiFuture<DocumentSnapshot> future = usersCollection.document(userID).get();
         DocumentSnapshot document = future.get();
@@ -53,10 +52,10 @@ public class UsersService {
     }
 
 
-    public String createUser(Users users) throws ExecutionException, InterruptedException {
+    public String createUser(User user) throws ExecutionException, InterruptedException {
         String userId = null;
 
-        ApiFuture<DocumentReference> future = firestore.collection("User").add(users);
+        ApiFuture<DocumentReference> future = firestore.collection("User").add(user);
         DocumentReference postRef = future.get();
         userId = postRef.getId();
 
