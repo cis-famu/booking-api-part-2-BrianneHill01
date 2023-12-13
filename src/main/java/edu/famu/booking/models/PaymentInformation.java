@@ -1,20 +1,22 @@
 package edu.famu.booking.models;
 
-import com.google.protobuf.Timestamp;
-import com.google.protobuf.util.Timestamps;
+import com.google.cloud.firestore.annotation.DocumentId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.text.ParseException;
+import javax.annotation.Nullable;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class PaymentInformation {
+
+    @DocumentId
+    private @Nullable String id;
     private String cardNumber;
     private String expirationDate;
     private String billingAddress;
-    private Timestamp createdAt;
+
 }
 

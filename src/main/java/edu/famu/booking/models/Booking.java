@@ -22,13 +22,15 @@ public class Booking {
     private String paymentStatus;
     private Timestamp createdAt;
 
-    public void setCreatedAt(String createdAt) throws ParseException {
-        this.createdAt = com.google.cloud.Timestamp.fromProto(Timestamps.parse(createdAt)).toProto();
+    public Booking(String book,Timestamp checkIn, Timestamp checkOut,String payment,float total, String progress, String uID){
+        bookingID = book;
+        checkInDate = checkIn;
+        checkOutDate= checkOut;
+        paymentStatus = payment;
+        totalPrice = total;
+        status = progress;
+        userID = uID;
     }
-    public void setCheckInDate(String checkInDate) throws ParseException {
-        this.checkInDate = com.google.cloud.Timestamp.fromProto(Timestamps.parse(checkInDate)).toProto();
-    }
-    public void setCheckOutDate(String checkOutDate) throws ParseException {
-        this.checkOutDate = com.google.cloud.Timestamp.fromProto(Timestamps.parse(checkOutDate)).toProto();
-    }
+
+
 }

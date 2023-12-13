@@ -1,6 +1,6 @@
 package edu.famu.booking.controllers;
-import edu.famu.booking.models.Hotel;
-import edu.famu.booking.service.HotelService;
+import edu.famu.booking.models.User;
+import edu.famu.booking.service.UserService;
 import edu.famu.booking.util.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,28 +9,28 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/hotel")
+@RequestMapping("/users")
 
-public class HotelController {
-    private HotelService hotelService;
+public class UserController {
+    private UserService userService;
 
-    public HotelController(HotelService hotelService){
-        this.hotelService = hotelService;
+    public UserController(UserService userService){
+        this.userService = userService;
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse> getAllHotels(){
+    public ResponseEntity<ApiResponse> getAllUsers(){
         try{
-            return ResponseEntity.ok(new ApiResponse(true, "Success", hotelService.getAllHotels(), null));
+            return ResponseEntity.ok(new ApiResponse(true, "Success", userService.getAllUsers(), null));
         }
         catch(Exception e){
             return ResponseEntity.status(500).body(new ApiResponse(false,"An error occurred.", null, e.getMessage()));
         }
     }
-    @GetMapping("/{hotelId}")
-    public ResponseEntity<ApiResponse> getHotelsbyId(@PathVariable String hotelId){
+    @GetMapping("/{userId}")
+    public ResponseEntity<ApiResponse> getUsersbyId(@PathVariable String userId){
         try{
-            return ResponseEntity.ok(new ApiResponse(true, "Success", hotelService.getHotelsById(hotelId), null));
+            return ResponseEntity.ok(new ApiResponse(true, "Success", userService.getUsersById(userId), null));
         }
         catch(Exception e){
             return ResponseEntity.status(500).body(new ApiResponse(false,"An error occurred.", null, e.getMessage()));
@@ -38,34 +38,33 @@ public class HotelController {
 
     }
     @PostMapping
-    public ResponseEntity<ApiResponse> createNewHotels(@RequestBody Hotel hotel){
+    public ResponseEntity<ApiResponse> createNewUsers(@RequestBody User user){
         try{
-            return ResponseEntity.ok(new ApiResponse(true,"Success", hotelService.createHotels(hotel),null));
+            return ResponseEntity.ok(new ApiResponse(true,"Success", userService.createUser(user),null));
         } catch (ExecutionException e){
             return ResponseEntity.status(401).body(new ApiResponse(false, "An error occured", null, e.getMessage()));
         } catch (InterruptedException e){
             return ResponseEntity.status(500).body(new ApiResponse(false,"An error occurred", null, e.getMessage()));
         }
     }
-    @PutMapping("/{hotels}")
-    public ResponseEntity<ApiResponse> updateHotels(@PathVariable String hotel,@RequestBody Map<String, String> j ){
+    @PutMapping("/{user}")
+    public ResponseEntity<ApiResponse> updateUsers(@PathVariable String user,@RequestBody Map<String, String> j ){
         try{
-            hotelService.updateHotels(hotel,j);
+            userService.updateUsers(user,j);
             return ResponseEntity.ok(new ApiResponse(true,"Update Success",null,null));
         } catch (Exception e){
             return ResponseEntity.status(500).body(new ApiResponse(false, "An error occurred", null, e.getMessage()));
         }
     }
-    @DeleteMapping("/{hotelID}")
-    public ResponseEntity<ApiResponse> deleteHotel(@PathVariable String hotelID){
+    @DeleteMapping("/{userID}")
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable String userID){
         try{
-            hotelService.deleteHotel(hotelID);
+            userService.deleteUser(userID);
             return ResponseEntity.ok(new ApiResponse(true,"Update Success",null,null));
         } catch (Exception e){
             return ResponseEntity.status(500).body(new ApiResponse(false, "An error occurred", null, e.getMessage()));
         }
 
     }
-
 
 }

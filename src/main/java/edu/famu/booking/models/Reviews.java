@@ -1,25 +1,28 @@
 package edu.famu.booking.models;
 
-import com.google.firebase.database.annotations.Nullable;
-import com.google.protobuf.Timestamp;
+import com.google.cloud.Timestamp;
 import com.google.protobuf.util.Timestamps;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.annotation.Nullable;
 import java.text.ParseException;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class Reviews {
     private @Nullable String reviewID;
     private String hotelID;
     private String userID;
-    private float rating;
-    private String comment;
+    private long rating;
+    private String	comment;
     private Timestamp date;
-    private Timestamp createdAt;
+    private @Nullable Timestamp createdAt;
 
-    public void setDate(String date) throws ParseException {
-        this.date = com.google.cloud.Timestamp.fromProto(Timestamps.parse(date)).toProto();
-    }
     public void setCreatedAt(String createdAt) throws ParseException {
-        this.createdAt = com.google.cloud.Timestamp.fromProto(Timestamps.parse(createdAt)).toProto();
+        this.createdAt = Timestamp.fromProto(Timestamps.parse(createdAt));
     }
-
 }
