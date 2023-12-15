@@ -27,7 +27,7 @@ User Walkthrough
 |/{hotelId}| Retrieves a specific hotel using its ID |
 |/room| Retrieves all rooms|
 |/{roomID}| Retrieves a specific room using its ID |
-|![Gif Walkthrough of Users](UsersGifWalkthrough.gif)
+|![Gif Walkthrough of Users](UserGifWalkthrough.gif)
 
 Hotel Walkthrough
 |Network|Description|
