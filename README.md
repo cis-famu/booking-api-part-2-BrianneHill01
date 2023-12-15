@@ -27,6 +27,28 @@ User Walkthrough
 |/{hotelId}| Retrieves a specific hotel using its ID |
 |/room| Retrieves all rooms|
 |/{roomID}| Retrieves a specific room using its ID |
-|![Gif Walkthrough of User](UserGifWalkthrough.gif)
+|![Gif Walkthrough of Users](UsersGifWalkthrough.gif)
+
+Hotel Walkthrough
+|Network|Description|
+|-------|-----------|
+|/user| Retrieves all users|
+|/{userId}| Retrieves a specific product using its ID |
+|/hotel| Retrieves all hotels|
+|/{hotelId}| Retrieves a specific hotel using its ID |
+|/room| Retrieves all rooms|
+|/{roomID}| Retrieves a specific room using its ID |
+|![Gif Walkthrough of Hotels](HotelsGifWalkthrough.gif)
+
+Room Walkthrough
+|Network|Description|
+|-------|-----------|
+|/user| Retrieves all users|
+|/{userId}| Retrieves a specific product using its ID |
+|/hotel| Retrieves all hotels|
+|/{hotelId}| Retrieves a specific hotel using its ID |
+|/room| Retrieves all rooms|
+|/{roomID}| Retrieves a specific room using its ID |
+|![Gif Walkthrough of Rooms](RoomsGifWalkthrough.gif)
 
 Create an endpoint that allows the user to sort descending or ascending by the createdAt. **6pts** (Done)
