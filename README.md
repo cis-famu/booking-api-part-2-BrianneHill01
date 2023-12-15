@@ -18,6 +18,7 @@
   All URIs begin with: 
 http://localhost:8080/api/v1/product/?sort=asc
 
+|User Walkthrough|
 |Network|Description|
 |-------|-----------|
 |/user| Retrieves all users|
