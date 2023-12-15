@@ -78,35 +78,42 @@ public class UserService {
     public String createUser(User user) throws ExecutionException, InterruptedException {
         String userId = null;
 
-        // Step 1: Create a new document for the user
-        ApiFuture<DocumentReference> userFuture = firestore.collection("Users").add(user);
-        DocumentReference userRef = userFuture.get();
-        userId = userRef.getId();
+// Step 1: Create a new document for the user
+            ApiFuture<DocumentReference> userFuture = firestore.collection("Users").add(user);
+            DocumentReference userRef = userFuture.get();
+            userId = userRef.getId();
 
-        // Step 2: Get the user document data
-        ApiFuture<DocumentSnapshot> userDocumentFuture = userRef.get();
-        DocumentSnapshot userDocument = userDocumentFuture.get();
-        if (userDocument.exists()) {
-            // Step 3: Get the paymentInformation field from the user document
-            DocumentReference paymentInfoRef = (DocumentReference) userDocument.get("pay");
-            if (paymentInfoRef != null) {
-                // Step 4: Get the paymentInformation data
-                ApiFuture<DocumentSnapshot> paymentInfoDocumentFuture = paymentInfoRef.get();
-                DocumentSnapshot paymentInfoDocument = paymentInfoDocumentFuture.get();
+// Step 2: Get the user document data
+            ApiFuture<DocumentSnapshot> userDocumentFuture = userRef.get();
+            DocumentSnapshot userDocument = userDocumentFuture.get();
+            if (userDocument.exists()) {
+                // Step 3: Get the paymentInformation field from the user document
+                Object paymentInfoObj = userDocument.get("pay");
+                if (paymentInfoObj instanceof DocumentReference) {
+                    DocumentReference paymentInfoRef = (DocumentReference) paymentInfoObj;
 
-                // Step 5: Assuming you want to create a new document for PaymentInformation
-                if (paymentInfoDocument.exists()) {
-                    PaymentInformation paymentInformation = paymentInfoDocument.toObject(PaymentInformation.class);
+                    // Step 4: Get the paymentInformation data
+                    ApiFuture<DocumentSnapshot> paymentInfoSnapshotFuture = paymentInfoRef.get();
+                    DocumentSnapshot paymentInfoDocument = paymentInfoSnapshotFuture.get();
 
-                    // Assuming PaymentInformation is a separate collection
-                    ApiFuture<DocumentReference> paymentInfoFuture = firestore.collection("PaymentInformation").add(paymentInformation);
-                    DocumentReference paymentInfoNewRef = paymentInfoFuture.get();
+                    // Step 5: Assuming you want to create a new document for PaymentInformation
+                    if (paymentInfoDocument.exists()) {
+                        PaymentInformation paymentInformation = paymentInfoDocument.toObject(PaymentInformation.class);
 
-                    // Step 6: Update the user document with the new paymentInformation reference
-                    userRef.update("pay", paymentInfoNewRef);
+                        // Assuming PaymentInformation is a separate collection
+                        ApiFuture<DocumentReference> paymentInfoFuture = firestore.collection("PaymentInformation").add(paymentInformation);
+                        DocumentReference paymentInfoNewRef = paymentInfoFuture.get();
+
+                        // Step 6: Update the user document with the new paymentInformation reference
+                        userRef.update("pay", paymentInfoNewRef);
+                    }
+                } else {
+                    // Handle the case where "pay" is not a DocumentReference
+                    // You might want to log an error or throw an exception
+                    System.err.println("'pay' field is not a DocumentReference");
                 }
             }
-        }
+
 
         return userId;
     }
