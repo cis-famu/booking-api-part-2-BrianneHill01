@@ -38,7 +38,7 @@ Hotel Walkthrough
 |/{hotelId}| Retrieves a specific hotel using its ID |
 |/room| Retrieves all rooms|
 |/{roomID}| Retrieves a specific room using its ID |
-|![Gif Walkthrough of Hotels](HotelsGifWalkthrough.gif)
+|![Gif Walkthrough of Hotels](HotelGifWalkthrough.gif)
 
 Room Walkthrough
 |Network|Description|
@@ -49,6 +49,6 @@ Room Walkthrough
 |/{hotelId}| Retrieves a specific hotel using its ID |
 |/room| Retrieves all rooms|
 |/{roomID}| Retrieves a specific room using its ID |
-|![Gif Walkthrough of Rooms](RoomsGifWalkthrough.gif)
+|![Gif Walkthrough of Rooms](RoomGifWalkthrough.gif)
 
 Create an endpoint that allows the user to sort descending or ascending by the createdAt. **6pts** (Done)
