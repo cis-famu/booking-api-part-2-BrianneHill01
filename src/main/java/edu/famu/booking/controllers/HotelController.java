@@ -47,7 +47,7 @@ public class HotelController {
             return ResponseEntity.status(500).body(new ApiResponse(false,"An error occurred", null, e.getMessage()));
         }
     }
-    @PutMapping("/{hotels}")
+    @PutMapping("/{hotel}")
     public ResponseEntity<ApiResponse> updateHotels(@PathVariable String hotel,@RequestBody Map<String, String> j ){
         try{
             hotelService.updateHotels(hotel,j);

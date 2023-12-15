@@ -42,7 +42,7 @@ public class RoomController {
         try{
             return ResponseEntity.ok(new ApiResponse(true,"Success", roomService.createRooms(rooms),null));
         } catch (ExecutionException e){
-            return ResponseEntity.status(401).body(new ApiResponse(false, "An error occured", null, e.getMessage()));
+            return ResponseEntity.status(401).body(new ApiResponse(false, "An error occurred", null, e.getMessage()));
         } catch (InterruptedException e){
             return ResponseEntity.status(500).body(new ApiResponse(false,"An error occurred", null, e.getMessage()));
         }
