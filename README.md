@@ -26,5 +26,6 @@ http://localhost:8080/api/v1/product/?sort=asc
 |/{hotelId}| Retrieves a specific hotel using its ID |
 |/room| Retrieves all rooms|
 |/{roomID}| Retrieves a specific room using its ID |
+|![Gif Walkthrough of User](
 
 Create an endpoint that allows the user to sort descending or ascending by the createdAt. **6pts** (Done)
